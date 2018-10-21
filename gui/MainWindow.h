@@ -15,12 +15,15 @@ public:
 
 private slots:
     void openDialogClicked();
+    void runClicked();
 
 private:
     Visitor visitor;
 
     QLabel *infoLabel;
     QPushButton *openDialogButton;
+    QLabel *pathLabel;
+    QPushButton *runButton;
 };
 
 #endif //DUPLICATES_MAINWINDOW_H

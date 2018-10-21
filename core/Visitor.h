@@ -1,11 +1,16 @@
 #ifndef DUPLICATES_VISITOR_H
 #define DUPLICATES_VISITOR_H
 
-#include "File.h"
+#include <QDir>
+#include <optional>
+#include "Stats.h"
 
 class Visitor {
 public:
-    void traverse(File root);
+    Stats traverse(QDir root);
+
+private:
+    std::optional<QByteArray> calculateHash(const QString &fileName);
 };
 
 
