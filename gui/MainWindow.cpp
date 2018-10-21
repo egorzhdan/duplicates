@@ -1,8 +1,8 @@
 #include "MainWindow.h"
-#include "DirectoryDialog.h"
 #include "GuiConstants.h"
 #include <QLabel>
 #include <QHeaderView>
+#include <QFileDialog>
 
 MainWindow::MainWindow() : QMainWindow() {
     setWindowFlags(windowFlags() & ~Qt::WindowFullscreenButtonHint);
