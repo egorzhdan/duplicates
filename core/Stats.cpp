@@ -10,5 +10,8 @@ std::vector<std::vector<std::string>> Stats::getDuplicates() {
         if (it.second.size() > 1)
             result.push_back(it.second);
     }
+    std::sort(result.begin(), result.end(), [](const auto& lhs, const auto& rhs) {
+        return lhs.size() > rhs.size();
+    });
     return result;
 }

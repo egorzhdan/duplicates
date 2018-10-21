@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QLabel>
+#include <QTableWidget>
 #include "core/Visitor.h"
 
 class MainWindow : public QMainWindow {
@@ -24,6 +25,7 @@ private:
     QPushButton *openDialogButton;
     QLabel *pathLabel;
     QPushButton *runButton;
+    QTableWidget *statsView;
 };
 
 #endif //DUPLICATES_MAINWINDOW_H
