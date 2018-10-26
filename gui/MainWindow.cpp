@@ -38,6 +38,7 @@ MainWindow::MainWindow() : QMainWindow() {
     statsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     statsView->setSelectionMode(QAbstractItemView::SingleSelection);
     statsView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    connect(statsView, SIGNAL(itemDoubleClicked(QTableWidgetItem * )), this, SLOT(statsItemClicked(QTableWidgetItem * )));
 }
 
 void MainWindow::openDialogClicked() {
@@ -49,13 +50,13 @@ void MainWindow::openDialogClicked() {
 void MainWindow::runClicked() {
     auto rootPath = pathLabel->text();
     auto stats = visitor.traverse(QDir(rootPath));
-    auto dupes = stats.getDuplicates();
+    dupes = stats.getDuplicates();
 
     statsView->setRowCount(static_cast<int>(dupes.size()));
 
     for (int i = 0; i < dupes.size(); i++) {
         QString label = "";
-        for (const auto& it : dupes[i]) {
+        for (const auto &it : dupes[i]) {
             label += it.data();
             label += "\n";
         }
@@ -65,4 +66,15 @@ void MainWindow::runClicked() {
         statsView->setItem(i, 1, new QTableWidgetItem(QString("%1 times").arg(dupes[i].size())));
     }
     statsView->resizeRowsToContents();
+}
+
+void MainWindow::statsItemClicked(QTableWidgetItem *item) {
+    auto row = item->row();
+    for (const auto &it : dupes[row]) {
+        auto file = QFile(QString(it.c_str()));
+        auto info = QFileInfo(file);
+        auto dir = info.dir();
+        if (dir.exists())
+            QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
+    }
 }

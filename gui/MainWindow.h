@@ -20,8 +20,11 @@ private slots:
 
     void runClicked();
 
+    void statsItemClicked(QTableWidgetItem *item);
+
 private:
     Visitor visitor;
+    Duplicates dupes;
 
     QLabel *infoLabel;
     QPushButton *openDialogButton;
