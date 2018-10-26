@@ -5,6 +5,8 @@
 #include <vector>
 #include <unordered_map>
 
+typedef std::vector<std::vector<std::string>> Duplicates;
+
 class Stats {
 public:
     void handle(std::string filePath, std::string fileHash);
