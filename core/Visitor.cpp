@@ -13,7 +13,7 @@ Stats Visitor::traverse(QDir root) {
         auto file = it.next();
         auto hash = calculateHash(file);
         if (!hash) {
-            log(std::string("Failed to calc hash for file") + "dd");
+            log(std::string("Failed to calc hash for file"));
             continue;
         }
 
