@@ -15,7 +15,9 @@ public:
     MainWindow();
 
 private slots:
+
     void openDialogClicked();
+
     void runClicked();
 
 private:

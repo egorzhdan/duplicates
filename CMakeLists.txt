@@ -16,5 +16,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 add_executable(Duplicates main.cpp
         gui/GuiConstants.h
         gui/MainWindow.cpp gui/MainWindow.h
-        core/Visitor.cpp core/Visitor.h core/Stats.cpp core/Stats.h core/Log.h)
+        core/Visitor.cpp core/Visitor.h
+        core/Stats.cpp core/Stats.h
+        core/Log.h)
 target_link_libraries(Duplicates Qt5::Widgets)
