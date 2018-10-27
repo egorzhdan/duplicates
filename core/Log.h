@@ -5,9 +5,9 @@
 #include <iostream>
 
 void log(const std::string& s) {
-//#ifdef IN_DEBUG
+#ifdef IN_DEBUG
     std::cout << s << std::endl;
-//#endif
+#endif
 }
 
 #endif //DUPLICATES_LOG_H
