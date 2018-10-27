@@ -48,9 +48,37 @@ void MainWindow::openDialogClicked() {
 }
 
 void MainWindow::runClicked() {
+    runButton->setEnabled(false);
+
     auto rootPath = pathLabel->text();
-    auto stats = visitor.traverse(QDir(rootPath));
+    visitor = new Visitor(this, rootPath);
+    connect(visitor, SIGNAL(processingFinished()), this, SLOT(visitorFinished()));
+    connect(visitor, SIGNAL(processedFile(int, QString)), this, SLOT(visitorProcessChanged(int, QString)));
+    visitor->start();
+}
+
+void MainWindow::statsItemClicked(QTableWidgetItem *item) {
+    auto row = item->row();
+    for (const auto &it : dupes[row]) {
+        auto file = QFile(QString(it.c_str()));
+        auto info = QFileInfo(file);
+        auto dir = info.dir();
+        if (dir.exists())
+            QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
+    }
+}
+
+void MainWindow::visitorProcessChanged(int idx, QString fileName) {
+    runButton->setText(QString("Processing %1 file").arg(idx));
+}
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "InfiniteRecursion"
+void MainWindow::visitorFinished() {
+    auto stats = visitor->getStats();
     dupes = stats.getDuplicates();
+    disconnect(visitor, SIGNAL(processingFinished()), this, SLOT(visitorFinished()));
+    disconnect(visitor, SIGNAL(processedFile(int, QString)), this, SLOT(visitorProcessChanged(int, QString)));
 
     statsView->setRowCount(static_cast<int>(dupes.size()));
 
@@ -66,15 +94,8 @@ void MainWindow::runClicked() {
         statsView->setItem(i, 1, new QTableWidgetItem(QString("%1 times").arg(dupes[i].size())));
     }
     statsView->resizeRowsToContents();
-}
 
-void MainWindow::statsItemClicked(QTableWidgetItem *item) {
-    auto row = item->row();
-    for (const auto &it : dupes[row]) {
-        auto file = QFile(QString(it.c_str()));
-        auto info = QFileInfo(file);
-        auto dir = info.dir();
-        if (dir.exists())
-            QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
-    }
+    runButton->setText(RunButtonText);
+    runButton->setEnabled(true);
 }
+#pragma clang diagnostic pop

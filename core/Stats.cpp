@@ -4,7 +4,7 @@ void Stats::handle(std::string filePath, std::string fileHash) {
     filePaths[fileHash].push_back(filePath);
 }
 
-Duplicates Stats::getDuplicates() {
+Duplicates Stats::getDuplicates() const {
     Duplicates result;
     for (const auto &it : filePaths) {
         if (it.second.size() > 1)
@@ -14,4 +14,8 @@ Duplicates Stats::getDuplicates() {
         return lhs.size() > rhs.size();
     });
     return result;
+}
+
+void Stats::clear() {
+    filePaths.clear();
 }

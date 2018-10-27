@@ -14,16 +14,20 @@ Q_OBJECT
 public:
     MainWindow();
 
-private slots:
+public slots:
 
     void openDialogClicked();
 
     void runClicked();
 
+    void visitorProcessChanged(int idx, QString fileName);
+
+    void visitorFinished();
+
     void statsItemClicked(QTableWidgetItem *item);
 
 private:
-    Visitor visitor;
+    Visitor *visitor = nullptr;
     Duplicates dupes;
 
     QLabel *infoLabel;

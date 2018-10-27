@@ -1,15 +1,31 @@
 #ifndef DUPLICATES_VISITOR_H
 #define DUPLICATES_VISITOR_H
 
+#include <QThread>
 #include <QDir>
 #include <optional>
 #include "Stats.h"
 
-class Visitor {
+class Visitor : public QThread {
+Q_OBJECT
+
 public:
-    Stats traverse(QDir root);
+    Visitor(QObject *parent, QDir root);
+
+    void run() override;
+
+    Stats getStats();
+
+signals:
+
+    void processedFile(int idx, QString fileName);
+
+    void processingFinished();
 
 private:
+    QDir root;
+    Stats stats;
+
     std::optional<QByteArray> calculateHash(const QString &fileName);
 };
 

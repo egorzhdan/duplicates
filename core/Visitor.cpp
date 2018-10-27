@@ -6,11 +6,15 @@
 #include <iostream>
 #include <unordered_map>
 
-Stats Visitor::traverse(QDir root) {
+Visitor::Visitor(QObject *parent, QDir root) : QThread(parent), root(root) {}
+
+void Visitor::run() {
     QDirIterator it(root.path(), QDir::Files, QDirIterator::FollowSymlinks | QDirIterator::Subdirectories);
-    Stats stats;
+    stats.clear();
+    size_t counter = 0;
     while (it.hasNext()) {
         auto file = it.next();
+        counter++;
         auto hash = calculateHash(file);
         if (!hash) {
             log(std::string("Failed to calc hash for file"));
@@ -19,8 +23,10 @@ Stats Visitor::traverse(QDir root) {
 
         log(file.toStdString());
         stats.handle(file.toStdString(), hash->toStdString());
+
+        emit processedFile((int) counter, file);
     }
-    return stats;
+    emit processingFinished();
 }
 
 std::optional<QByteArray> Visitor::calculateHash(const QString &fileName) {
@@ -32,4 +38,8 @@ std::optional<QByteArray> Visitor::calculateHash(const QString &fileName) {
         }
     }
     return std::nullopt;
+}
+
+Stats Visitor::getStats() {
+    return stats;
 }
