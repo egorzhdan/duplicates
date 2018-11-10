@@ -53,7 +53,7 @@ void MainWindow::runClicked() {
     auto rootPath = pathLabel->text();
     visitor = new Visitor(this, rootPath);
     connect(visitor, SIGNAL(processingFinished()), this, SLOT(visitorFinished()));
-    connect(visitor, SIGNAL(processedFile(int, QString)), this, SLOT(visitorProcessChanged(int, QString)));
+    connect(visitor, SIGNAL(processedFile(int)), this, SLOT(visitorProcessChanged(int)));
     visitor->start();
 }
 
@@ -68,7 +68,7 @@ void MainWindow::statsItemClicked(QTableWidgetItem *item) {
     }
 }
 
-void MainWindow::visitorProcessChanged(int idx, QString fileName) {
+void MainWindow::visitorProcessChanged(int idx) {
     bool shouldUpdateUI = (idx <= 1000) || (idx % 1000 == 0);
 
     if (shouldUpdateUI) {

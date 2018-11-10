@@ -18,7 +18,7 @@ public:
 
 signals:
 
-    void processedFile(int idx, QString fileName);
+    void processedFile(int idx);
 
     void processingFinished();
 

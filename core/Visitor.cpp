@@ -26,7 +26,7 @@ void Visitor::run() {
         log(file.toStdString());
         stats.handle(file.toStdString(), hash->toStdString());
 
-        emit processedFile((int) counter, file);
+        emit processedFile((int) counter);
     }
     emit processingFinished();
 }

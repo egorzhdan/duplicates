@@ -22,7 +22,7 @@ public slots:
 
     void runClicked();
 
-    void visitorProcessChanged(int idx, QString fileName);
+    void visitorProcessChanged(int idx);
 
     void visitorFinished();
 
