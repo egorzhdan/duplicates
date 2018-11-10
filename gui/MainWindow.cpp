@@ -49,6 +49,7 @@ void MainWindow::openDialogClicked() {
 
 void MainWindow::runClicked() {
     runButton->setEnabled(false);
+    openDialogButton->setEnabled(false);
 
     auto rootPath = pathLabel->text();
     visitor = new Visitor(this, rootPath);
@@ -104,6 +105,7 @@ void MainWindow::visitorFinished() {
 
     runButton->setText(RunButtonText);
     runButton->setEnabled(true);
+    openDialogButton->setEnabled(true);
 }
 
 #pragma clang diagnostic pop
