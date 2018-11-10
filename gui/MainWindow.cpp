@@ -84,7 +84,8 @@ void MainWindow::visitorProcessChanged(int idx, QString fileName) {
 void MainWindow::visitorFinished() {
     auto stats = visitor->getStats();
     dupes = stats.getDuplicates();
-    visitor->~Visitor();
+    delete visitor;
+    visitor = nullptr;
 
     statsView->setRowCount(static_cast<int>(dupes.size()));
 
@@ -109,7 +110,9 @@ void MainWindow::visitorFinished() {
 
 MainWindow::~MainWindow() {
     if (visitor) {
-        visitor->requestInterruption();
-        visitor->wait();
+        if (visitor->isRunning()) {
+            visitor->requestInterruption();
+            visitor->wait();
+        }
     }
 }
