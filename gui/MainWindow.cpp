@@ -84,8 +84,7 @@ void MainWindow::visitorProcessChanged(int idx, QString fileName) {
 void MainWindow::visitorFinished() {
     auto stats = visitor->getStats();
     dupes = stats.getDuplicates();
-    disconnect(visitor, SIGNAL(processingFinished()), this, SLOT(visitorFinished()));
-    disconnect(visitor, SIGNAL(processedFile(int, QString)), this, SLOT(visitorProcessChanged(int, QString)));
+    visitor->~Visitor();
 
     statsView->setRowCount(static_cast<int>(dupes.size()));
 
