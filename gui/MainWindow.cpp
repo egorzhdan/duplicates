@@ -7,7 +7,7 @@
 MainWindow::MainWindow() : QMainWindow() {
     setWindowFlags(windowFlags() & ~Qt::WindowFullscreenButtonHint);
     setWindowTitle("Duplicates");
-    setFixedSize(700, 500);
+    setFixedSize(900, 700);
 
     infoLabel = new QLabel(InfoLabelText, this);
     infoLabel->setAlignment(Qt::AlignCenter);
