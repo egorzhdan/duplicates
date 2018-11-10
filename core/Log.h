@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-void log(const std::string& s) {
+inline void log(const std::string& s) {
 #ifdef IN_DEBUG
     std::cout << s << std::endl;
 #endif
