@@ -14,6 +14,8 @@ Q_OBJECT
 public:
     MainWindow();
 
+    ~MainWindow();
+
 public slots:
 
     void openDialogClicked();

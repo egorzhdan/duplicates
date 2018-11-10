@@ -13,6 +13,8 @@ void Visitor::run() {
     stats.clear();
     size_t counter = 0;
     while (it.hasNext()) {
+        if (isInterruptionRequested()) break;
+
         auto file = it.next();
         counter++;
         auto hash = calculateHash(file);

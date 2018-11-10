@@ -99,3 +99,10 @@ void MainWindow::visitorFinished() {
     runButton->setEnabled(true);
 }
 #pragma clang diagnostic pop
+
+MainWindow::~MainWindow() {
+    if (visitor) {
+        visitor->requestInterruption();
+        visitor->wait();
+    }
+}
