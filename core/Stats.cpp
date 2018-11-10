@@ -1,4 +1,5 @@
 #include "Stats.h"
+#include <algorithm>
 
 void Stats::handle(std::string filePath, std::string fileHash) {
     filePaths[fileHash].push_back(filePath);
