@@ -69,7 +69,13 @@ void MainWindow::statsItemClicked(QTableWidgetItem *item) {
 }
 
 void MainWindow::visitorProcessChanged(int idx, QString fileName) {
-    runButton->setText(QString("Processing %1 file").arg(idx));
+    bool shouldUpdateUI = (idx <= 1000) || (idx % 1000 == 0);
+
+    if (shouldUpdateUI) {
+        runButton->setText(QString("Processing %1%2 file")
+                                   .arg(idx < 1000 ? idx : (idx / 1000))
+                                   .arg(idx < 1000 ? "" : "k"));
+    }
 }
 
 #pragma clang diagnostic push
