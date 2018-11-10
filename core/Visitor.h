@@ -18,7 +18,7 @@ public:
 
 signals:
 
-    void processedFile(int idx);
+    void processedFile(int idx, int totalCount);
 
     void processingFinished();
 

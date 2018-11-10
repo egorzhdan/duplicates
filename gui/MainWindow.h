@@ -22,7 +22,7 @@ public slots:
 
     void runClicked();
 
-    void visitorProcessChanged(int idx);
+    void visitorProcessChanged(int idx, int totalCount);
 
     void visitorFinished();
 

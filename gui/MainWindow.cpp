@@ -55,8 +55,10 @@ void MainWindow::runClicked() {
     auto rootPath = pathLabel->text();
     visitor = new Visitor(this, rootPath);
     connect(visitor, SIGNAL(processingFinished()), this, SLOT(visitorFinished()));
-    connect(visitor, SIGNAL(processedFile(int)), this, SLOT(visitorProcessChanged(int)));
+    connect(visitor, SIGNAL(processedFile(int, int)), this, SLOT(visitorProcessChanged(int, int)));
     visitor->start();
+
+    runButton->setText(RunStartedText);
 }
 
 void MainWindow::statsItemClicked(QTableWidgetItem *item) {
@@ -70,13 +72,14 @@ void MainWindow::statsItemClicked(QTableWidgetItem *item) {
     }
 }
 
-void MainWindow::visitorProcessChanged(int idx) {
+void MainWindow::visitorProcessChanged(int idx, int totalCount) {
     bool shouldUpdateUI = (idx <= 1000) || (idx % 1000 == 0);
 
     if (shouldUpdateUI) {
-        runButton->setText(QString("Processing %1%2 file")
+        runButton->setText(QString("Processing %1%2 file out of %3")
                                    .arg(idx < 1000 ? idx : (idx / 1000))
-                                   .arg(idx < 1000 ? "" : "k"));
+                                   .arg(idx < 1000 ? "" : "k")
+                                   .arg(totalCount));
     }
 }
 
