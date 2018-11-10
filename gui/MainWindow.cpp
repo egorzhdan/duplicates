@@ -80,6 +80,7 @@ void MainWindow::visitorProcessChanged(int idx, QString fileName) {
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "InfiniteRecursion"
+
 void MainWindow::visitorFinished() {
     auto stats = visitor->getStats();
     dupes = stats.getDuplicates();
@@ -104,6 +105,7 @@ void MainWindow::visitorFinished() {
     runButton->setText(RunButtonText);
     runButton->setEnabled(true);
 }
+
 #pragma clang diagnostic pop
 
 MainWindow::~MainWindow() {
