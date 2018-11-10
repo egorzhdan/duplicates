@@ -9,7 +9,7 @@ typedef std::vector<std::vector<std::string>> Duplicates;
 
 class Stats {
 public:
-    void handle(std::string filePath, std::string fileHash);
+    void handle(std::string&& filePath, const std::string& fileHash);
 
     void clear();
 

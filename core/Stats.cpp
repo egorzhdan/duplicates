@@ -1,7 +1,7 @@
 #include "Stats.h"
 #include <algorithm>
 
-void Stats::handle(std::string filePath, std::string fileHash) {
+void Stats::handle(std::string&& filePath, const std::string& fileHash) {
     filePaths[fileHash].push_back(filePath);
 }
 
