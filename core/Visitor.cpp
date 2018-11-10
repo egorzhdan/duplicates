@@ -9,7 +9,7 @@
 Visitor::Visitor(QObject *parent, QDir root) : QThread(parent), root(root) {}
 
 void Visitor::run() {
-    QDirIterator it(root.path(), QDir::Files, QDirIterator::FollowSymlinks | QDirIterator::Subdirectories);
+    QDirIterator it(root.path(), QDir::Files, QDirIterator::Subdirectories);
     stats.clear();
     size_t counter = 0;
     while (it.hasNext()) {
