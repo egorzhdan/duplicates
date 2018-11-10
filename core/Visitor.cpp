@@ -33,7 +33,7 @@ void Visitor::run() {
 
 std::optional<QByteArray> Visitor::calculateHash(const QString &fileName) {
     QFile f(fileName);
-    if (f.exists() && f.open(QFile::ReadOnly)) {
+    if (f.open(QFile::ReadOnly)) {
         QCryptographicHash hash(QCryptographicHash::Algorithm::Md5);
         if (hash.addData(&f)) {
             return hash.result();
