@@ -50,6 +50,7 @@ void MainWindow::openDialogClicked() {
 void MainWindow::runClicked() {
     runButton->setEnabled(false);
     openDialogButton->setEnabled(false);
+    statsView->setRowCount(0);
 
     auto rootPath = pathLabel->text();
     visitor = new Visitor(this, rootPath);
